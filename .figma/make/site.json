@@ -1,0 +1,10 @@
+{
+  "description": "Experience a premium, interactive platform for purchasing fresh eggs, tailored for both individual consumers and businesses, showcasing quality and trust.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}

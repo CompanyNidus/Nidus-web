@@ -24,6 +24,17 @@ jobs:
         with:
           lfs: true
 
+      - name: Setup Git LFS
+        uses: git-lfs/setup-git-lfs@v3
+
+      - name: Pull Git LFS files
+        run: git lfs pull
+
+      - name: Verify image files
+        run: |
+          echo "Checking source images..."
+          find src/imports -type f \( -iname '*.jpeg' -o -iname '*.jpg' -o -iname '*.png' \) -exec ls -lh {} \;
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -35,6 +46,15 @@ jobs:
 
       - name: Build Vite app
         run: npm run build
+
+      - name: Verify built images
+        run: |
+          echo "Checking built images..."
+          find dist/assets -type f \( -iname '*.jpeg' -o -iname '*.jpg' -o -iname '*.png' \) -exec ls -lh {} \;
+
+      - name: Verify built page metadata
+        run: |
+          grep -E '<title>|robots|favicon' dist/index.html || true
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

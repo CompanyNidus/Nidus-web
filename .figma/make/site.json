@@ -1,7 +1,15 @@
 {
-  "description": "Experience a premium, interactive platform for purchasing fresh eggs, tailored for both individual consumers and businesses, showcasing quality and trust.",
+  "title": "Avícola Nidus | Huevos frescos y distribución",
+  "description": "Avícola Nidus: huevos frescos y distribución para hogares y negocios.",
+  "language": "es",
   "robots": {
-    "index": false
+    "index": true
+  },
+  "icons": {
+    "icon": "/favicon.svg"
+  },
+  "openGraph": {
+    "image": ""
   },
   "accessibility": {
     "addBypassLinks": false,

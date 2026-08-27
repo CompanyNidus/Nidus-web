@@ -24,9 +24,6 @@ jobs:
         with:
           lfs: true
 
-      - name: Setup Git LFS
-        uses: git-lfs/setup-git-lfs@v3
-
       - name: Pull Git LFS files
         run: git lfs pull
 

@@ -50,7 +50,7 @@ const PRODUCTS = [
     img: imgMayor,
   },
   {
-    id: 6, name: 'Huevo Jumbo', presentation: 'Cubeta x 30', weight: 'Extragrande',
+    id: 8, name: 'Huevo Jumbo', presentation: 'Cubeta x 30', weight: 'Extragrande',
     price: 'Precio a consultar', category: 'detal' as const,
     desc: 'Nuestros huevos más grandes, con mayor contenido proteico por unidad.',
     img: imgDetal,

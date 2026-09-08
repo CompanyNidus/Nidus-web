@@ -9,8 +9,9 @@ import {
 
 // ─── Image imports (real Nidus photos) ───────────────────────────────────────
 import imgDetal from '@/imports/WhatsApp Image 2026-09-08 at 3.48.35 PM.jpeg'
-import imgMayor from '@/imports/WhatsApp_Image_2026-08-11_at_4.23.59_PM.jpeg'
+import imgMayor from '@/imports/ChatGPT Image 8 sept 2026, 15_34_52.png'
 import imgHuevoAzul from '@/imports/ChatGPT Image 8 sept 2026, 16_01_41.png'
+import imgHuevo from '@/imports/WhatsApp_Image_2026-08-11_at_4.24.05_PM.jpeg'
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
@@ -489,9 +490,10 @@ function Hero() {
             onMouseLeave={() => setImgHov(false)}
           >
             <img
-              src={imgHuevoAzul}
+              src={imgHuevo}
               alt="Huevos frescos en cubeta — azules y marrones — de Nidus"
               className="w-full h-full object-cover"
+              style={{ transform: 'rotate(180deg)' }}
               style={{
                 transform: imgHov ? 'scale(1.08)' : 'scale(1)',
                 transition: 'transform 0.7s ease-out',
@@ -814,7 +816,7 @@ const B2C_DATA = {
   desc: 'Desde cartones de 6 hasta presentaciones especiales, Nidus tiene el huevo perfecto para cada comida y cada presupuesto.',
   features: ['Huevos AA y A clasificados', 'Entrega a domicilio disponible', 'Sin intermediarios', 'Precio justo y constante'],
   cta: 'Comprar al detal',
-  img: imgHuevoAzul,
+  img: imgHuevo,
   imgAlt: 'Cubeta de huevos frescos azules y marrones para el hogar',
   stat: { v: '+2.000', l: 'hogares abastecidos' },
 }

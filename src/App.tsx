@@ -1136,7 +1136,7 @@ function ProductsSection() {
                 }}
                 aria-pressed={filter === f}
               >
-                {f === 'todos' ? 'Todos' : f === 'detal' ? 'Detal' : 'Mayorista'}
+                {f === 'detal' ? 'Detal' : 'Mayorista'}
               </button>
             ))}
           </div>

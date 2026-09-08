@@ -8,54 +8,73 @@ import {
 } from 'react'
 
 // ─── Image imports (real Nidus photos) ───────────────────────────────────────
-import imgWarehouse from '@/imports/WhatsApp_Image_2026-08-11_at_4.23.59_PM__1_.jpeg'
-import imgShelves from '@/imports/WhatsApp_Image_2026-08-11_at_4.23.59_PM.jpeg'
-import imgFloor from '@/imports/WhatsApp_Image_2026-08-11_at_4.24.00_PM.jpeg'
-import imgBlueEggs from '@/imports/WhatsApp_Image_2026-08-11_at_4.24.05_PM.jpeg'
-import imgWall from '@/imports/WhatsApp_Image_2026-08-11_at_4.24.10_PM.jpeg'
+import imgDetal from '@/imports/WhatsApp Image 2026-09-08 at 3.48.35 PM.jpeg'
+import imgMayor from '@/imports/WhatsApp_Image_2026-08-11_at_4.23.59_PM.jpeg'
+import imgHuevoAzul from '@/imports/ChatGPT Image 8 sept 2026, 16_01_41.png'
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
 const PRODUCTS = [
   {
-    id: 1, name: 'Huevos AA', presentation: 'Cartón × 12', weight: 'Tamaño grande',
+    id: 1, name: 'Huevos B', presentation: 'Cubeta × 30', weight: 'medio-pequeño',
+    price: 'Precio a consultar', category: 'detal' as const,
+    badge: 'Chef favorito',
+    desc: 'Pensado para cocinas profesionales con flujo constante de producción.',
+    img: imgDetal,
+  },
+  {
+    id: 2, name: 'Huevos A', presentation: 'Cubeta × 30', weight: 'Tamaño mediano',
+    price: 'Precio a consultar', category: 'detal' as const,
+    desc: 'El tamaño perfecto para el consumo familiar sin desperdicios.',
+    img: imgDetal,
+  },
+  {
+    id: 3, name: 'Huevos AA', presentation: 'Cubeta × 30', weight: 'Tamaño medio-grande',
     price: 'Precio a consultar', category: 'detal' as const,
     badge: 'Más pedido',
     desc: 'Huevos frescos de primera calidad, ideales para el hogar y el consumo diario.',
-    img: imgBlueEggs,
+    img: imgDetal,
   },
   {
-    id: 2, name: 'Huevos A', presentation: 'Cartón × 6', weight: 'Tamaño mediano',
-    price: 'Precio a consultar', category: 'detal' as const,
-    desc: 'El tamaño perfecto para el consumo familiar sin desperdicios.',
-    img: imgFloor,
-  },
-  {
-    id: 3, name: 'Cubeta Estándar', presentation: 'Cubeta × 30', weight: 'Tamaño A',
+    id: 5, name: 'Huevos EX', presentation: 'Cubeta × 30', weight: 'Tamaño grande',
     price: 'Precio a consultar', category: 'mayorista' as const,
     badge: 'Para negocios',
     desc: 'Para negocios que necesitan calidad constante y volumen confiable.',
-    img: imgWarehouse,
+    img: imgDetal,
   },
   {
-    id: 4, name: 'Caja Mayorista', presentation: 'Caja × 180', weight: 'Surtido AA / A',
+    id: 4, name: 'Decolorado', presentation: '>10 cubetas', weight: 'Surtido A / AA /EX /JUM',
     price: 'Precio a consultar', category: 'mayorista' as const,
     badge: 'Mayorista',
     desc: 'La solución perfecta para distribuidores y operaciones de gran volumen.',
-    img: imgWall,
+    img: imgMayor,
   },
   {
-    id: 5, name: 'Huevo Jumbo', presentation: 'Cartón × 12', weight: 'Extragrande',
+    id: 6, name: 'Huevo Jumbo', presentation: 'Cubeta x 30', weight: 'Extragrande',
     price: 'Precio a consultar', category: 'detal' as const,
     desc: 'Nuestros huevos más grandes, con mayor contenido proteico por unidad.',
-    img: imgBlueEggs,
+    img: imgDetal,
   },
   {
-    id: 6, name: 'Pack Restaurante', presentation: '5 cubetas × 30', weight: 'A / AA',
+    id: 6, name: 'Huevo Manchado', presentation: '>10 cubetas', weight: 'A / AA /EX /JUM',
     price: 'Precio a consultar', category: 'mayorista' as const,
     badge: 'Chef favorito',
     desc: 'Pensado para cocinas profesionales con flujo constante de producción.',
-    img: imgShelves,
+    img: imgMayor,
+  },
+  {
+    id: 7, name: 'Pack Restaurante', presentation: '>5 cubetas', weight: 'A / AA /EX /JUM',
+    price: 'Precio a consultar', category: 'mayorista' as const,
+    badge: 'Chef favorito',
+    desc: 'Pensado para cocinas profesionales con flujo constante de producción.',
+    img: imgMayor,
+  },
+  {
+    id: 9, name: 'Huevos Campesinos/Azul', presentation: 'Cubeta × 30', weight: 'Grande ',
+    price: 'Precio a consultar', category: 'detal' as const,
+    badge: 'Chef favorito',
+    desc: 'Pensado para cocinas profesionales con flujo constante de producción.',
+    img: imgHuevoAzul,
   },
 ]
 
@@ -1092,7 +1111,7 @@ const [filter, setFilter] = useState<'detal' | 'mayorista'>('detal')
 const shown = PRODUCTS.filter(p => {
   if (filter === 'detal') return p.category === 'detal'
 
-  return p.id === 4
+  return p.id === 4 || p.id === 6 || p.id === 7
 })
 
   return (

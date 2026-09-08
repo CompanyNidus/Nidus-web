@@ -489,7 +489,7 @@ function Hero() {
             onMouseLeave={() => setImgHov(false)}
           >
             <img
-              src={imgBlueEggs}
+              src={imgHuevoAzul}
               alt="Huevos frescos en cubeta — azules y marrones — de Nidus"
               className="w-full h-full object-cover"
               style={{
@@ -720,13 +720,6 @@ function StorySection() {
                 boxShadow: '0 20px 60px rgba(26,21,16,0.12)',
               }}
             >
-              <img
-                src={imgWall}
-                alt="Instalaciones de Nidus — estanterías con cientos de cubetas de huevos organizadas"
-                className="w-full h-full object-cover"
-                style={{ filter: 'brightness(0.88) contrast(1.06)' }}
-                loading="lazy"
-              />
             </div>
             <div
               className="mt-5 px-1"
@@ -821,7 +814,7 @@ const B2C_DATA = {
   desc: 'Desde cartones de 6 hasta presentaciones especiales, Nidus tiene el huevo perfecto para cada comida y cada presupuesto.',
   features: ['Huevos AA y A clasificados', 'Entrega a domicilio disponible', 'Sin intermediarios', 'Precio justo y constante'],
   cta: 'Comprar al detal',
-  img: imgBlueEggs,
+  img: imgHuevoAzul,
   imgAlt: 'Cubeta de huevos frescos azules y marrones para el hogar',
   stat: { v: '+2.000', l: 'hogares abastecidos' },
 }
@@ -831,7 +824,7 @@ const B2B_DATA = {
   desc: 'Restaurantes, panaderías, hoteles y distribuidores confían en Nidus para garantizar su operación sin contratiempos.',
   features: ['Precios mayoristas competitivos', 'Entregas programadas', 'Crédito y facturación', 'Asesor de cuenta dedicado'],
   cta: 'Solicitar cotización B2B',
-  img: imgWarehouse,
+  img: imgMayor,
   imgAlt: 'Bodega Nidus con cubetas listas para distribución mayorista',
   stat: { v: '+300', l: 'negocios activos' },
 }

@@ -1087,9 +1087,13 @@ function ProductCard({ p, idx }: { p: (typeof PRODUCTS)[0]; idx: number }) {
 }
 
 function ProductsSection() {
-  const [filter, setFilter] = useState<'todos' | 'detal' | 'mayorista'>('todos')
+const [filter, setFilter] = useState<'detal' | 'mayorista'>('detal')
   const { ref, vis } = useVisible(0.05)
-  const shown = filter === 'todos' ? PRODUCTS : PRODUCTS.filter(p => p.category === filter)
+const shown = PRODUCTS.filter(p => {
+  if (filter === 'detal') return p.category === 'detal'
+
+  return p.id === 4
+})
 
   return (
     <section
@@ -1123,7 +1127,7 @@ function ProductsSection() {
             </h2>
           </div>
           <div className="flex gap-2 flex-wrap" role="group" aria-label="Filtrar productos">
-            {(['todos', 'detal', 'mayorista'] as const).map(f => (
+            {(['detal', 'mayorista'] as const).map(f => (   
               <button
                 key={f}
                 onClick={() => setFilter(f)}
@@ -1138,7 +1142,7 @@ function ProductsSection() {
               >
                 {f === 'detal' ? 'Detal' : 'Mayorista'}
               </button>
-            ))}
+            ))} 
           </div>
         </div>
 

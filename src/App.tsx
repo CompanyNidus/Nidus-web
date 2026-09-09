@@ -493,7 +493,6 @@ function Hero() {
               src={imgHuevo}
               alt="Huevos frescos en cubeta — azules y marrones — de Nidus"
               className="w-full h-full object-cover"
-              style={{ transform: 'rotate(180deg)' }}
               style={{
                 transform: imgHov ? 'scale(1.08)' : 'scale(1)',
                 transition: 'transform 0.7s ease-out',

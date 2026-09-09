@@ -388,8 +388,11 @@ function Navbar({ scrollY }: { scrollY: number }) {
           <button
             className="mt-1 px-5 py-3 rounded-full text-sm font-semibold"
             style={{ backgroundColor: 'var(--terra)', color: 'var(--cream-lt)', fontFamily: 'Outfit, sans-serif' }}
-          >
-            Comprar ahora
+          ><a
+              href="https://wa.me/573102166781?text=Hola%20Nidus,%20quiero%20comprar%20huevos%20al%20detal%20o%20al%20mayor."
+              target="_blank"
+              rel="noopener noreferrer">
+            Comprar ahora</a>
           </button>
         </div>
       </div>
@@ -593,10 +596,10 @@ function Hero() {
             className="flex flex-wrap gap-4 mt-10"
             style={{ animation: 'slide-in 1s ease 0.3s both' }}
           >
-            <Btn primary>Comprar al detal →</Btn>
-            <Btn primary={false}>
+            <Btn primary><a href="#products">Comprar al detal →</a></Btn>
+            <Btn primary={false}><a href="#product">
               <span className="text-xs opacity-60 mr-1">B2B</span>
-              Comprar al por mayor
+              Comprar al por mayor</a>
             </Btn>
           </div>
 

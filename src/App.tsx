@@ -19,7 +19,7 @@ const PRODUCTS = [
   {
     id: 1, name: 'Huevos B', presentation: 'Cubeta × 30', weight: 'medio-pequeño',
     price: 'Precio a consultar', category: 'detal' as const,
-    badge: 'Chef favorito',
+    badge: 'Economico',
     desc: 'Pensado para cocinas profesionales con flujo constante de producción.',
     img: imgDetal,
   },
@@ -38,7 +38,7 @@ const PRODUCTS = [
   },
   {
     id: 5, name: 'Huevos EX', presentation: 'Cubeta × 30', weight: 'Tamaño grande',
-    price: 'Precio a consultar', category: 'mayorista' as const,
+    price: 'Precio a consultar', category: 'detal' as const,
     badge: 'Para negocios',
     desc: 'Para negocios que necesitan calidad constante y volumen confiable.',
     img: imgDetal,
@@ -73,7 +73,7 @@ const PRODUCTS = [
   {
     id: 9, name: 'Huevos Campesinos/Azul', presentation: 'Cubeta × 30', weight: 'Grande ',
     price: 'Precio a consultar', category: 'detal' as const,
-    badge: 'Chef favorito',
+    badge: 'Más pedido',
     desc: 'Pensado para cocinas profesionales con flujo constante de producción.',
     img: imgHuevoAzul,
   },

@@ -452,7 +452,6 @@ function Btn({
 }
 
 // ─── Hero ─────────────────────────────────────────────────────────────────────
-
 function Hero() {
   const heroRef = useRef<HTMLElement>(null)
   const m = useMouse(heroRef)
@@ -465,11 +464,14 @@ function Hero() {
       style={{ backgroundColor: 'var(--cream-lt)' }}
       aria-label="Bienvenida a Nidus"
     >
-      {/* Decorative logo marks — watermark layer */}
+      {/* =================================================
+          DECORACIÓN — LOGOS DE FONDO
+          ================================================= */}
       <div
         className="absolute pointer-events-none"
         style={{
-          top: '5%', right: '2%',
+          top: '5%',
+          right: '2%',
           transform: `translate(${m.x * -22}px,${m.y * -14}px)`,
           transition: 'transform 0.12s ease-out',
           opacity: 0.06,
@@ -477,10 +479,12 @@ function Hero() {
       >
         <NidusLogoMark size={320} color="#8B2E1A" />
       </div>
+
       <div
         className="absolute pointer-events-none"
         style={{
-          bottom: '10%', left: '2%',
+          bottom: '10%',
+          left: '2%',
           transform: `translate(${m.x * 18}px,${m.y * 12}px)`,
           transition: 'transform 0.12s ease-out',
           opacity: 0.04,
@@ -490,7 +494,9 @@ function Hero() {
         <NidusLogoMark size={180} color="#8B2E1A" />
       </div>
 
-      {/* Right: egg photo with organic clip */}
+      {/* =================================================
+          DESKTOP — IMAGEN HERO
+          ================================================= */}
       <div
         className="absolute right-0 top-0 bottom-0 hidden lg:flex items-center"
         style={{ width: '48%' }}
@@ -505,10 +511,13 @@ function Hero() {
           <div
             className="relative overflow-hidden"
             style={{
-              width: 420, height: 540,
-              borderRadius: '50% 50% 50% 50% / 38% 38% 62% 62%',
+              width: 420,
+              height: 540,
+              borderRadius:
+                '50% 50% 50% 50% / 38% 38% 62% 62%',
               transform: imgHov ? 'scale(1.04)' : 'scale(1)',
-              transition: 'transform 0.55s cubic-bezier(0.34,1.56,0.64,1)',
+              transition:
+                'transform 0.55s cubic-bezier(0.34,1.56,0.64,1)',
               boxShadow: imgHov
                 ? '0 0 80px rgba(139,46,26,0.18), 0 40px 80px rgba(26,21,16,0.12)'
                 : '0 30px 60px rgba(26,21,16,0.1)',
@@ -524,22 +533,29 @@ function Hero() {
               style={{
                 transform: imgHov ? 'scale(1.08)' : 'scale(1)',
                 transition: 'transform 0.7s ease-out',
-                filter: 'brightness(0.96) contrast(1.05) saturate(1.1)',
+                filter:
+                  'brightness(0.96) contrast(1.05) saturate(1.1)',
               }}
             />
+
             <div
               className="absolute inset-0"
               style={{
-                background: 'linear-gradient(to top, rgba(242,236,227,0.55) 0%, transparent 40%)',
+                background:
+                  'linear-gradient(to top, rgba(242,236,227,0.55) 0%, transparent 40%)',
               }}
             />
           </div>
 
-          {/* Hover info */}
+          {/* =================================================
+              INFORMACIÓN AL PASAR EL MOUSE
+              ================================================= */}
           <div
             className="absolute"
             style={{
-              bottom: 70, left: '50%', transform: 'translateX(-50%)',
+              bottom: 70,
+              left: '50%',
+              transform: 'translateX(-50%)',
               width: 300,
               opacity: imgHov ? 1 : 0,
               translate: imgHov ? '0 0' : '0 10px',
@@ -553,39 +569,75 @@ function Hero() {
           >
             <div
               className="text-xs font-semibold mb-1 uppercase tracking-wider"
-              style={{ color: 'var(--terra)', fontFamily: 'Outfit, sans-serif' }}
+              style={{
+                color: 'var(--terra)',
+                fontFamily: 'Outfit, sans-serif',
+              }}
             >
               Producto Nidus
             </div>
-            <div className="text-sm font-medium" style={{ color: 'var(--slate)', fontFamily: 'Outfit, sans-serif' }}>
+
+            <div
+              className="text-sm font-medium"
+              style={{
+                color: 'var(--slate)',
+                fontFamily: 'Outfit, sans-serif',
+              }}
+            >
               Huevos frescos · Cubeta × 30
             </div>
-            <div className="text-xs mt-0.5" style={{ color: 'var(--muted)', fontFamily: 'Outfit, sans-serif' }}>
+
+            <div
+              className="text-xs mt-0.5"
+              style={{
+                color: 'var(--muted)',
+                fontFamily: 'Outfit, sans-serif',
+              }}
+            >
               Calidad garantizada · Entrega en 24h
             </div>
           </div>
         </div>
       </div>
 
-      {/* Left: content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 pt-28 pb-20 w-full">
-        <div className="max-w-[580px]">
+      {/* =================================================
+          CONTENIDO PRINCIPAL
+          ================================================= */}
+      <div
+        className="relative z-10 max-w-7xl mx-auto px-6 pt-28 pb-20 w-full"
+      >
+        <div className="max-w-[580px] mx-auto lg:mx-0">
 
-          {/* Eyebrow */}
+          {/* =================================================
+              EYEBROW
+              ================================================= */}
           <div
             className="flex items-center gap-3 mb-8"
-            style={{ animation: 'slide-in 0.8s ease both' }}
+            style={{
+              animation: 'slide-in 0.8s ease both',
+            }}
           >
-            <div className="h-px w-10" style={{ backgroundColor: 'var(--terra)' }} />
+            <div
+              className="h-px w-10"
+              style={{
+                backgroundColor: 'var(--terra)',
+              }}
+            />
+
             <span
               className="text-xs font-semibold tracking-widest uppercase"
-              style={{ color: 'var(--terra)', fontFamily: 'Outfit, sans-serif' }}
+              style={{
+                color: 'var(--terra)',
+                fontFamily: 'Outfit, sans-serif',
+              }}
             >
               Del origen a tu mesa
             </span>
           </div>
 
-          {/* H1 */}
+          {/* =================================================
+              TITULO
+              ================================================= */}
           <h1
             style={{
               fontFamily: 'Fraunces, serif',
@@ -597,12 +649,66 @@ function Hero() {
               animation: 'slide-in 0.9s ease 0.08s both',
             }}
           >
-            El huevo que<br />
-            <em style={{ fontStyle: 'italic', color: 'var(--terra)' }}>mueve</em>
-            {' '}tu<br />negocio.
+            El huevo que
+            <br />
+
+            <em
+              style={{
+                fontStyle: 'italic',
+                color: 'var(--terra)',
+              }}
+            >
+              mueve
+            </em>
+
+            {' '}tu
+            <br />
+
+            negocio.
           </h1>
 
-          {/* Subheadline */}
+          {/* =================================================
+              MOBILE — IMAGEN RESPONSIVA Y CENTRADA
+              ================================================= */}
+          <div
+            className="lg:hidden w-full flex justify-center mt-5 mb-8 px-4"
+          >
+            <div
+              className="relative overflow-hidden"
+              style={{
+                width: 'clamp(180px, 62vw, 320px)',
+                aspectRatio: '1 / 1',
+                borderRadius:
+                  '50% 50% 50% 50% / 42% 42% 58% 58%',
+                boxShadow:
+                  '0 20px 50px rgba(26,21,16,0.15)',
+                flexShrink: 0,
+              }}
+            >
+              <img
+                src={imgHuevo}
+                alt="Huevos frescos en cubeta — azules y marrones — de Nidus"
+                className="w-full h-full object-cover"
+                style={{
+                  objectPosition: 'center',
+                  filter:
+                    'brightness(0.96) contrast(1.05) saturate(1.1)',
+                }}
+              />
+
+              <div
+                className="absolute inset-0"
+                style={{
+                  background:
+                    'linear-gradient(to top, rgba(242,236,227,0.35) 0%, transparent 50%)',
+                }}
+              />
+            </div>
+          </div>
+
+          {/* =================================================
+              SUBTITULO
+              ================================================= */}
           <p
             className="mt-6 text-lg leading-relaxed"
             style={{
@@ -613,25 +719,61 @@ function Hero() {
               animation: 'slide-in 1s ease 0.18s both',
             }}
           >
-            Huevos frescos, calidad constante y distribución para hogares y negocios en toda la región.
+            Huevos frescos, calidad constante y distribución para hogares
+            y negocios en toda la región.
           </p>
 
-          {/* CTAs */}
+          {/* =================================================
+              BOTONES
+              ================================================= */}
           <div
             className="flex flex-wrap gap-4 mt-10"
-            style={{ animation: 'slide-in 1s ease 0.3s both' }}
+            style={{
+              animation: 'slide-in 1s ease 0.3s both',
+            }}
           >
-            <Btn primary><a href="#products">Comprar al detal →</a></Btn>
-            <Btn primary={false}><a href="#product">
-              <span className="text-xs opacity-60 mr-1">B2B</span>
-              Comprar al por mayor</a>
+            <Btn primary>
+              <a
+                href="#mayoristas"
+                onClick={() => {
+                  window.dispatchEvent(
+                    new CustomEvent('nidus-mode', {
+                      detail: 'detal',
+                    })
+                  )
+                }}
+              >
+                Comprar al detal →
+              </a>
+            </Btn>
+
+            <Btn primary={false}>
+              <a
+                href="#mayoristas"
+                onClick={() => {
+                  window.dispatchEvent(
+                    new CustomEvent('nidus-mode', {
+                      detail: 'mayorista',
+                    })
+                  )
+                }}
+              >
+                <span className="text-xs opacity-60 mr-1">
+                  B2B
+                </span>
+                Comprar al por mayor
+              </a>
             </Btn>
           </div>
 
-          {/* Mini stats */}
+          {/* =================================================
+              ESTADISTICAS
+              ================================================= */}
           <div
             className="flex flex-wrap gap-8 mt-14"
-            style={{ animation: 'slide-in 1s ease 0.44s both' }}
+            style={{
+              animation: 'slide-in 1s ease 0.44s both',
+            }}
           >
             {[
               { v: '+5K', l: 'Huevos / día' },
@@ -641,13 +783,23 @@ function Hero() {
               <div key={s.l}>
                 <div
                   style={{
-                    fontFamily: 'Fraunces, serif', fontSize: 28, fontWeight: 700,
-                    color: 'var(--terra)', lineHeight: 1,
+                    fontFamily: 'Fraunces, serif',
+                    fontSize: 28,
+                    fontWeight: 700,
+                    color: 'var(--terra)',
+                    lineHeight: 1,
                   }}
                 >
                   {s.v}
                 </div>
-                <div className="text-xs mt-1" style={{ color: 'var(--muted)', fontFamily: 'Outfit, sans-serif' }}>
+
+                <div
+                  className="text-xs mt-1"
+                  style={{
+                    color: 'var(--muted)',
+                    fontFamily: 'Outfit, sans-serif',
+                  }}
+                >
                   {s.l}
                 </div>
               </div>
@@ -656,18 +808,34 @@ function Hero() {
         </div>
       </div>
 
-      {/* Scroll indicator */}
+      {/* =================================================
+          SCROLL INDICATOR
+          ================================================= */}
       <div
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-        style={{ animation: 'slide-in 1s ease 0.8s both' }}
+        style={{
+          animation: 'slide-in 1s ease 0.8s both',
+        }}
         aria-hidden="true"
       >
-        <span className="text-xs tracking-widest uppercase" style={{ color: 'var(--terra)', opacity: 0.45, fontFamily: 'Outfit, sans-serif' }}>
+        <span
+          className="text-xs tracking-widest uppercase"
+          style={{
+            color: 'var(--terra)',
+            opacity: 0.45,
+            fontFamily: 'Outfit, sans-serif',
+          }}
+        >
           Scroll
         </span>
+
         <div
           className="w-px h-10"
-          style={{ background: 'linear-gradient(to bottom, var(--terra), transparent)', opacity: 0.5 }}
+          style={{
+            background:
+              'linear-gradient(to bottom, var(--terra), transparent)',
+            opacity: 0.5,
+          }}
         />
       </div>
     </section>
@@ -675,7 +843,6 @@ function Hero() {
 }
 
 // ─── Story Section ────────────────────────────────────────────────────────────
-
 function StorySection() {
   const { ref, vis } = useVisible(0.06)
 
@@ -687,13 +854,26 @@ function StorySection() {
       aria-labelledby="story-heading"
     >
       <div className="max-w-7xl mx-auto px-6">
+
+        {/* Título */}
         <div className={`mb-20 reveal ${vis ? 'visible' : ''}`}>
           <div className="flex items-center gap-3 mb-5">
-            <div className="h-px w-8" style={{ backgroundColor: 'var(--terra)' }} />
-            <span className="text-xs tracking-widest uppercase font-semibold" style={{ color: 'var(--terra)', fontFamily: 'Outfit, sans-serif' }}>
+            <div
+              className="h-px w-8"
+              style={{ backgroundColor: 'var(--terra)' }}
+            />
+
+            <span
+              className="text-xs tracking-widest uppercase font-semibold"
+              style={{
+                color: 'var(--terra)',
+                fontFamily: 'Outfit, sans-serif',
+              }}
+            >
               El recorrido
             </span>
           </div>
+
           <h2
             id="story-heading"
             style={{
@@ -707,37 +887,56 @@ function StorySection() {
           >
             De la granja a tu puerta,
             <br />
-            <em style={{ fontStyle: 'italic', color: 'var(--terra)' }}>sin excepciones.</em>
+            <em
+              style={{
+                fontStyle: 'italic',
+                color: 'var(--terra)',
+              }}
+            >
+              sin excepciones.
+            </em>
           </h2>
         </div>
 
-        {/* Right side real photo */}
+        {/* Contenido */}
         <div className="grid lg:grid-cols-2 gap-16 items-start">
+
+          {/* Izquierda: recorrido */}
           <div>
             <div
               className="absolute left-0 w-px hidden lg:block"
               style={{
-                top: 0, height: '100%',
-                background: 'linear-gradient(to bottom, rgba(139,46,26,0.4), rgba(139,46,26,0.03))',
+                top: 0,
+                height: '100%',
+                background:
+                  'linear-gradient(to bottom, rgba(139,46,26,0.4), rgba(139,46,26,0.03))',
                 transform: `scaleY(${vis ? 1 : 0})`,
                 transformOrigin: 'top',
                 transition: 'transform 1.5s ease 0.3s',
                 position: 'relative',
               }}
             />
+
             <div className="space-y-0">
               {STAGES.map((s, i) => (
-                <StoryRow key={s.n} s={s} i={i} vis={vis} />
+                <StoryRow
+                  key={s.n}
+                  s={s}
+                  i={i}
+                  vis={vis}
+                />
               ))}
             </div>
           </div>
 
-          {/* Warehouse photo as visual anchor */}
+          {/* Derecha: fotografía */}
           <div
-            className="hidden lg:block sticky top-32"
+            className="block lg:sticky lg:top-32"
             style={{
               opacity: vis ? 1 : 0,
-              transform: vis ? 'translateX(0)' : 'translateX(30px)',
+              transform: vis
+                ? 'translateX(0)'
+                : 'translateX(30px)',
               transition: 'all 0.8s ease 0.3s',
             }}
           >
@@ -746,10 +945,18 @@ function StorySection() {
               style={{
                 borderRadius: '2rem',
                 aspectRatio: '3/4',
-                boxShadow: '0 20px 60px rgba(26,21,16,0.12)',
+                boxShadow:
+                  '0 20px 60px rgba(26,21,16,0.12)',
               }}
             >
+              <img
+                src={imgMayor}
+                alt="Instalaciones de Nidus y proceso de distribución de huevos"
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
             </div>
+
             <div
               className="mt-5 px-1"
               style={{
@@ -762,6 +969,7 @@ function StorySection() {
               Instalaciones Nidus — capacidad para miles de huevos diarios
             </div>
           </div>
+
         </div>
       </div>
     </section>
@@ -840,6 +1048,18 @@ function StoryRow({ s, i, vis }: { s: (typeof STAGES)[0]; i: number; vis: boolea
 function ChooseSection() {
   const [mode, setMode] = useState<'detal' | 'mayorista'>('detal')
   const { ref, vis } = useVisible(0.08)
+    useEffect(() => {
+    const handleMode = (event: Event) => {
+      const customEvent = event as CustomEvent<'detal' | 'mayorista'>
+      setMode(customEvent.detail)
+    }
+
+    window.addEventListener('nidus-mode', handleMode)
+
+    return () => {
+      window.removeEventListener('nidus-mode', handleMode)
+    }
+  }, [])
 
   const shown = PRODUCTS.filter(p =>
     mode === 'detal'
@@ -1054,21 +1274,19 @@ function ProductCard({ p, idx }: { p: (typeof PRODUCTS)[0]; idx: number }) {
                 href={`https://wa.me/573102166781?text=${encodeURIComponent(
                 `¡Hola Nidus!
 
-                Estoy interesado en el producto:
+Estoy interesado en el producto:
 
-                Categoría: ${
-                  p.category === 'detal'
-                  ? 'Al detal - Hogar'
-                  : 'Al por mayor - Negocio'
-                }
+Categoría: ${
+p.category === 'detal'
+? 'Al detal - Hogar'
+: 'Al por mayor - Negocio'}
 
-                Producto: ${p.name}
+Producto: ${p.name}
 
-                ¿Podrían brindarme información de disponibilidad y precio?`
-                )}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                >
+¿Podrían brindarme información de disponibilidad y precio?`
+)}`}
+target="_blank"
+rel="noopener noreferrer">
                 <Btn primary>
                 Contactar por WhatsApp
                 </Btn>

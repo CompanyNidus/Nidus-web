@@ -841,7 +841,125 @@ function Hero() {
     </section>
   )
 }
+// ─── whatsApp Section ────────────────────────────────────────────────────────────
+function WhatsAppFloatingButton() {
+  const phone = '573102166781'
 
+  const message = `¡Hola Nidus! Estoy interesado en comprar huevos.
+
+Modalidad: al detal / al por mayor
+Referencia: 
+Cantidad: 
+
+¿Me pueden ayudar con disponibilidad y precio?`
+
+  const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`
+
+  return (
+    <a
+      href={whatsappUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Contactar a Nidus por WhatsApp"
+      className="fixed z-[9999] right-5 bottom-5 md:right-7 md:bottom-7 group"
+    >
+      {/* Texto flotante */}
+      <div
+        className="
+          absolute right-0 bottom-full mb-3
+          whitespace-nowrap
+          rounded-full
+          px-4 py-2
+          opacity-0
+          translate-y-2
+          pointer-events-none
+          group-hover:opacity-100
+          group-hover:translate-y-0
+          transition-all duration-300
+        "
+        style={{
+          backgroundColor: 'var(--slate)',
+          color: 'var(--cream-lt)',
+          fontFamily: 'Outfit, sans-serif',
+          fontSize: '13px',
+          fontWeight: 500,
+          boxShadow: '0 10px 30px rgba(26,21,16,0.16)',
+        }}
+      >
+        ¿Necesitas huevos? Escríbenos
+      </div>
+
+      {/* Botón */}
+      <div
+        className="
+          relative
+          w-14 h-14
+          md:w-16 md:h-16
+          rounded-full
+          flex items-center justify-center
+          transition-all duration-300
+          group-hover:scale-110
+          group-active:scale-95
+        "
+        style={{
+          background:
+            'linear-gradient(145deg, #25D366 0%, #128C7E 100%)',
+          boxShadow:
+            '0 12px 35px rgba(18,140,126,0.32)',
+        }}
+      >
+        {/* Anillo exterior */}
+        <div
+          className="
+            absolute inset-0
+            rounded-full
+            opacity-0
+            group-hover:opacity-100
+            scale-100
+            group-hover:scale-125
+            transition-all duration-500
+          "
+          style={{
+            border: '2px solid rgba(37,211,102,0.35)',
+          }}
+        />
+
+        {/* Icono WhatsApp */}
+        <svg
+          viewBox="0 0 32 32"
+          className="w-7 h-7 md:w-8 md:h-8"
+          fill="none"
+          aria-hidden="true"
+        >
+          <path
+            d="M16 3.5C9.1 3.5 3.5 9.1 3.5 16c0 2.2.6 4.3 1.7 6.1L3.6 28.5l6.6-1.5c1.7 1 3.7 1.5 5.8 1.5 6.9 0 12.5-5.6 12.5-12.5S22.9 3.5 16 3.5Z"
+            fill="white"
+          />
+
+          <path
+            d="M11.7 9.9c.3-.1.6-.1.8.3l1.2 2.8c.1.3.1.6-.1.8l-.8.9c-.2.2-.2.5 0 .8.6 1 1.5 1.9 2.5 2.5.3.2.6.2.8 0l.9-.8c.2-.2.5-.2.8-.1l2.8 1.2c.3.1.4.5.3.8l-.4 1.3c-.2.6-.8 1-1.4 1-2.2-.1-4.6-1.2-6.5-3.1-1.9-1.9-3-4.3-3.1-6.5 0-.6.4-1.2 1-1.4l1.2-.5Z"
+            fill="#25D366"
+          />
+        </svg>
+
+        {/* Punto de disponibilidad */}
+        <span
+          className="
+            absolute
+            top-0 right-0
+            w-3.5 h-3.5
+            rounded-full
+            border-2
+          "
+          style={{
+            backgroundColor: '#25D366',
+            borderColor: 'var(--cream-lt)',
+          }}
+        />
+      </div>
+    </a>
+  )
+}
 // ─── Story Section ────────────────────────────────────────────────────────────
 function StorySection() {
   const { ref, vis } = useVisible(0.06)
@@ -1951,6 +2069,7 @@ export default function App() {
       <Navbar scrollY={scrollY} />
       <main>
         <Hero />
+        <WhatsAppFloatingButton />
         <StorySection />
         <ChooseSection />
         <QualitySection />

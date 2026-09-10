@@ -12,6 +12,7 @@ import imgDetal from '@/imports/WhatsApp Image 2026-09-08 at 3.48.35 PM.jpeg'
 import imgMayor from '@/imports/ChatGPT Image 8 sept 2026, 15_34_52.png'
 import imgHuevoAzul from '@/imports/ChatGPT Image 8 sept 2026, 16_01_41.png'
 import imgHuevo from '@/imports/WhatsApp_Image_2026-08-11_at_4.24.05_PM.jpeg'
+import imgCubetas from '@/imports/Cubetas.jpeg'
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
@@ -44,10 +45,31 @@ const PRODUCTS = [
     img: imgDetal,
   },
   {
-    id: 4, name: 'Decolorado', presentation: '>10 cubetas', weight: 'Surtido A / AA /EX /JUM',
+    id: 10, name: 'Huevos B', presentation: '>10 cubetas', weight: 'B',
+    price: 'Precio a consultar', category: 'mayorista' as const,
+    badge: 'Mayorista',
+    desc: 'Pensado para cocinas profesionales con flujo constante de producción.',
+    img: imgCubetas,
+  },
+  {
+    id: 11, name: 'Huevos A', presentation: '>20 cubetas', weight: 'A',
     price: 'Precio a consultar', category: 'mayorista' as const,
     badge: 'Mayorista',
     desc: 'La solución perfecta para distribuidores y operaciones de gran volumen.',
+    img: imgCubetas,
+  },
+  {
+    id: 12, name: 'Huevos AA', presentation: '>20 cubetas', weight: 'AA',
+    price: 'Precio a consultar', category: 'mayorista' as const,
+    badge: 'Mayorista',
+    desc: 'La solución perfecta para distribuidores y operaciones de gran volumen.',
+    img: imgCubetas,
+  },
+  {
+    id: 4, name: 'Decolorado', presentation: '>50 cubetas', weight: 'Surtido A / AA /EX /JUM',
+    price: 'Precio a consultar', category: 'mayorista' as const,
+    badge: 'Mayorista',
+    desc: 'Cubetas sin pesar',
     img: imgMayor,
   },
   {
@@ -57,18 +79,18 @@ const PRODUCTS = [
     img: imgDetal,
   },
   {
-    id: 6, name: 'Huevo Manchado', presentation: '>10 cubetas', weight: 'A / AA /EX /JUM',
+    id: 6, name: 'Huevo Manchado', presentation: '>50 cubetas', weight: 'A / AA /EX /JUM',
     price: 'Precio a consultar', category: 'mayorista' as const,
-    badge: 'Chef favorito',
-    desc: 'Pensado para cocinas profesionales con flujo constante de producción.',
+    badge: 'Mayorista',
+    desc: 'Cubetas sin pesar',
     img: imgMayor,
   },
   {
     id: 7, name: 'Pack Restaurante', presentation: '>5 cubetas', weight: 'A / AA /EX /JUM',
     price: 'Precio a consultar', category: 'mayorista' as const,
-    badge: 'Chef favorito',
+    badge: 'Mayorista',
     desc: 'Pensado para cocinas profesionales con flujo constante de producción.',
-    img: imgMayor,
+    img: imgCubetas,
   },
   {
     id: 9, name: 'Huevos Campesinos/Azul', presentation: 'Cubeta × 30', weight: 'Grande ',
@@ -77,6 +99,7 @@ const PRODUCTS = [
     desc: 'Pensado para cocinas profesionales con flujo constante de producción.',
     img: imgHuevoAzul,
   },
+
 ]
 
 const TESTIMONIALS = [
@@ -385,15 +408,17 @@ function Navbar({ scrollY }: { scrollY: number }) {
               {label}
             </a>
           ))}
-          <button
+          <a
+            href="https://wa.me/573102166781?text=¡Hola%20Nidus,%20quiero%20comprar%20huevos%20al%20detal%20o%20al%20por%20mayor!"
+            target="_blank"
+            rel="noopener noreferrer">
+            <button
             className="mt-1 px-5 py-3 rounded-full text-sm font-semibold"
             style={{ backgroundColor: 'var(--terra)', color: 'var(--cream-lt)', fontFamily: 'Outfit, sans-serif' }}
-          ><a
-              href="https://wa.me/573102166781?text=Hola%20Nidus,%20quiero%20comprar%20huevos%20al%20detal%20o%20al%20mayor."
-              target="_blank"
-              rel="noopener noreferrer">
-            Comprar ahora</a>
-          </button>
+            >
+            Comprar ahora
+            </button>
+          </a>
         </div>
       </div>
     </header>
@@ -609,8 +634,8 @@ function Hero() {
             style={{ animation: 'slide-in 1s ease 0.44s both' }}
           >
             {[
-              { v: '+10K', l: 'Huevos / día' },
-              { v: '+500', l: 'Clientes activos' },
+              { v: '+5K', l: 'Huevos / día' },
+              { v: '+50', l: 'Clientes activos' },
               { v: '24h', l: 'Entrega máxima' },
             ].map(s => (
               <div key={s.l}>
@@ -812,31 +837,15 @@ function StoryRow({ s, i, vis }: { s: (typeof STAGES)[0]; i: number; vis: boolea
 
 // ─── Choose Section ───────────────────────────────────────────────────────────
 
-const B2C_DATA = {
-  label: 'Para tu hogar',
-  headline: 'La frescura que tu familia merece.',
-  desc: 'Desde cartones de 6 hasta presentaciones especiales, Nidus tiene el huevo perfecto para cada comida y cada presupuesto.',
-  features: ['Huevos AA y A clasificados', 'Entrega a domicilio disponible', 'Sin intermediarios', 'Precio justo y constante'],
-  cta: 'Comprar al detal',
-  img: imgHuevo,
-  imgAlt: 'Cubeta de huevos frescos azules y marrones para el hogar',
-  stat: { v: '+2.000', l: 'hogares abastecidos' },
-}
-const B2B_DATA = {
-  label: 'Para tu negocio',
-  headline: 'Volumen, calidad y cumplimiento.',
-  desc: 'Restaurantes, panaderías, hoteles y distribuidores confían en Nidus para garantizar su operación sin contratiempos.',
-  features: ['Precios mayoristas competitivos', 'Entregas programadas', 'Crédito y facturación', 'Asesor de cuenta dedicado'],
-  cta: 'Solicitar cotización B2B',
-  img: imgMayor,
-  imgAlt: 'Bodega Nidus con cubetas listas para distribución mayorista',
-  stat: { v: '+300', l: 'negocios activos' },
-}
-
 function ChooseSection() {
   const [mode, setMode] = useState<'detal' | 'mayorista'>('detal')
   const { ref, vis } = useVisible(0.08)
-  const data = mode === 'detal' ? B2C_DATA : B2B_DATA
+
+  const shown = PRODUCTS.filter(p =>
+    mode === 'detal'
+      ? p.category === 'detal'
+      : p.category === 'mayorista'
+  )
 
   return (
     <section
@@ -853,23 +862,35 @@ function ChooseSection() {
             style={{
               fontFamily: 'Fraunces, serif',
               fontSize: 'clamp(2rem,4vw,3.2rem)',
-              fontWeight: 700, color: 'var(--slate)',
+              fontWeight: 700,
+              color: 'var(--slate)',
               letterSpacing: '-0.022em',
             }}
           >
             Elige tu{' '}
-            <em style={{ fontStyle: 'italic', color: 'var(--terra)' }}>Nidus</em>
+            <em style={{ fontStyle: 'italic', color: 'var(--terra)' }}>
+              Nidus
+            </em>
           </h2>
-          <p className="mt-3 text-base" style={{ color: 'var(--muted)', fontFamily: 'Outfit, sans-serif' }}>
+
+          <p
+            className="mt-3 text-base"
+            style={{
+              color: 'var(--muted)',
+              fontFamily: 'Outfit, sans-serif',
+            }}
+          >
             Atendemos hogares y negocios con la misma dedicación.
           </p>
         </div>
 
-        {/* Toggle */}
         <div className={`flex justify-center mb-14 reveal ${vis ? 'visible' : ''}`}>
           <div
             className="flex p-1.5 rounded-full"
-            style={{ backgroundColor: 'var(--cream-dk)', border: '1px solid var(--border)' }}
+            style={{
+              backgroundColor: 'var(--cream-dk)',
+              border: '1px solid var(--border)',
+            }}
           >
             {(['detal', 'mayorista'] as const).map(m => (
               <button
@@ -878,99 +899,38 @@ function ChooseSection() {
                 className="px-8 py-3 rounded-full text-sm font-semibold transition-all duration-350"
                 style={{
                   fontFamily: 'Outfit, sans-serif',
-                  backgroundColor: mode === m ? 'var(--terra)' : 'transparent',
-                  color: mode === m ? 'var(--cream-lt)' : 'var(--muted)',
+                  backgroundColor:
+                    mode === m ? 'var(--terra)' : 'transparent',
+                  color:
+                    mode === m
+                      ? 'var(--cream-lt)'
+                      : 'var(--muted)',
                 }}
                 aria-pressed={mode === m}
               >
-                {m === 'detal' ? 'Al detal — Hogar' : 'Al por mayor — Negocio'}
+                {m === 'detal'
+                  ? 'Al detal — Hogar'
+                  : 'Al por mayor — Negocio'}
               </button>
             ))}
           </div>
         </div>
 
-        {/* Content */}
         <div
-          className="grid lg:grid-cols-2 gap-14 items-center"
           style={{
             opacity: vis ? 1 : 0,
             transform: vis ? 'translateY(0)' : 'translateY(28px)',
             transition: 'all 0.65s ease 0.15s',
           }}
         >
-          <div key={mode} style={{ animation: 'fade-up 0.45s ease both' }}>
-            <span
-              className="inline-block px-3 py-1 rounded-full text-xs font-semibold mb-5"
-              style={{ backgroundColor: 'var(--terra-lt)', color: 'var(--terra)', fontFamily: 'Outfit, sans-serif', letterSpacing: '0.05em' }}
-            >
-              {data.label}
-            </span>
-            <h3
-              style={{
-                fontFamily: 'Fraunces, serif',
-                fontSize: 'clamp(1.8rem,3vw,2.7rem)',
-                fontWeight: 700, color: 'var(--slate)',
-                letterSpacing: '-0.022em', lineHeight: 1.13, marginBottom: 16,
-              }}
-            >
-              {data.headline}
-            </h3>
-            <p style={{ color: 'var(--muted)', fontFamily: 'Outfit, sans-serif', fontWeight: 300, lineHeight: 1.72, marginBottom: 22, fontSize: 15 }}>
-              {data.desc}
-            </p>
-            <ul className="space-y-3 mb-9" role="list">
-              {data.features.map(f => (
-                <li key={f} className="flex items-center gap-3">
-                  <NidusLogoMark size={16} color="var(--terra)" />
-                  <span style={{ color: 'var(--dark)', fontFamily: 'Outfit, sans-serif', fontSize: 14 }}>{f}</span>
-                </li>
-              ))}
-            </ul>
-            <div className="flex items-center gap-7">
-              <Btn primary>{data.cta}</Btn>
-              <div>
-                <div style={{ fontFamily: 'Fraunces, serif', fontSize: 22, fontWeight: 700, color: 'var(--terra)', lineHeight: 1 }}>
-                  {data.stat.v}
-                </div>
-                <div style={{ color: 'var(--muted)', fontFamily: 'Outfit, sans-serif', fontSize: 11 }}>
-                  {data.stat.l}
-                </div>
-              </div>
-            </div>
-            {mode === 'mayorista' && (
-              <div className="mt-7 flex flex-wrap gap-2">
-                {['Restaurantes', 'Panaderías', 'Hoteles', 'Supermercados', 'Distribuidores'].map(b => (
-                  <span key={b} className="px-3 py-1.5 rounded-full text-xs font-medium"
-                    style={{ backgroundColor: 'var(--cream-dk)', color: 'var(--muted)', border: '1px solid var(--border)', fontFamily: 'Outfit, sans-serif' }}>
-                    {b}
-                  </span>
-                ))}
-              </div>
-            )}
-          </div>
-
-          <div key={`img-${mode}`} className="relative" style={{ animation: 'fade-up 0.45s ease 0.1s both' }}>
-            <div
-              className="relative overflow-hidden w-full"
-              style={{
-                borderRadius: mode === 'detal' ? '60% 40% 52% 48% / 48% 52% 56% 44%' : '40% 60% 44% 56% / 56% 44% 60% 40%',
-                aspectRatio: '4/3',
-                transition: 'border-radius 0.6s ease',
-                boxShadow: '0 20px 60px rgba(26,21,16,0.1)',
-              }}
-            >
-              <img
-                src={data.img}
-                alt={data.imgAlt}
-                className="w-full h-full object-cover"
-                style={{ filter: 'brightness(0.9) contrast(1.06)' }}
-                loading="lazy"
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {shown.map((p, i) => (
+              <ProductCard
+                key={p.id}
+                p={p}
+                idx={i}
               />
-              <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, rgba(139,46,26,0.08) 0%, transparent 55%)' }} />
-            </div>
-            <div className="absolute -top-4 -right-4" style={{ animation: 'float 5.5s ease-in-out infinite', opacity: 0.35 }}>
-              <NidusLogoMark size={64} color="var(--terra)" />
-            </div>
+            ))}
           </div>
         </div>
       </div>
@@ -1090,10 +1050,29 @@ function ProductCard({ p, idx }: { p: (typeof PRODUCTS)[0]; idx: number }) {
               <p className="text-sm leading-relaxed mb-6" style={{ color: 'var(--muted)', fontFamily: 'Outfit, sans-serif', fontWeight: 300 }}>
                 {p.desc}
               </p>
-              <div className="flex gap-3">
-                <Btn primary>Solicitar pedido</Btn>
-                <Btn primary={false}>WhatsApp</Btn>
-              </div>
+              <a
+                href={`https://wa.me/573102166781?text=${encodeURIComponent(
+                `¡Hola Nidus!
+
+                Estoy interesado en el producto:
+
+                Categoría: ${
+                  p.category === 'detal'
+                  ? 'Al detal - Hogar'
+                  : 'Al por mayor - Negocio'
+                }
+
+                Producto: ${p.name}
+
+                ¿Podrían brindarme información de disponibilidad y precio?`
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                >
+                <Btn primary>
+                Contactar por WhatsApp
+                </Btn>
+              </a>
             </div>
           </div>
         </div>
@@ -1101,75 +1080,6 @@ function ProductCard({ p, idx }: { p: (typeof PRODUCTS)[0]; idx: number }) {
     </>
   )
 }
-
-function ProductsSection() {
-const [filter, setFilter] = useState<'detal' | 'mayorista'>('detal')
-  const { ref, vis } = useVisible(0.05)
-const shown = PRODUCTS.filter(p => {
-  if (filter === 'detal') return p.category === 'detal'
-
-  return p.id === 4 || p.id === 6 || p.id === 7
-})
-
-  return (
-    <section
-      id="productos"
-      ref={ref}
-      className="py-32"
-      style={{ backgroundColor: 'var(--cream)' }}
-      aria-labelledby="products-heading"
-    >
-      <div className="max-w-7xl mx-auto px-6">
-        <div className={`flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 reveal ${vis ? 'visible' : ''}`}>
-          <div>
-            <div className="flex items-center gap-3 mb-3">
-              <div className="h-px w-8" style={{ backgroundColor: 'var(--terra)' }} />
-              <span className="text-xs tracking-widest uppercase font-semibold" style={{ color: 'var(--terra)', fontFamily: 'Outfit, sans-serif' }}>
-                Productos
-              </span>
-            </div>
-            <h2
-              id="products-heading"
-              style={{
-                fontFamily: 'Fraunces, serif',
-                fontSize: 'clamp(2rem,4vw,3rem)',
-                fontWeight: 700, color: 'var(--slate)',
-                letterSpacing: '-0.022em', lineHeight: 1.08,
-              }}
-            >
-              Calidad en cada
-              <br />
-              <em style={{ fontStyle: 'italic', color: 'var(--terra)' }}>presentación.</em>
-            </h2>
-          </div>
-          <div className="flex gap-2 flex-wrap" role="group" aria-label="Filtrar productos">
-            {(['detal', 'mayorista'] as const).map(f => (   
-              <button
-                key={f}
-                onClick={() => setFilter(f)}
-                className="px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-200"
-                style={{
-                  fontFamily: 'Outfit, sans-serif',
-                  backgroundColor: filter === f ? 'var(--terra)' : 'rgba(139,46,26,0.07)',
-                  color: filter === f ? 'var(--cream-lt)' : 'var(--muted)',
-                  border: `1px solid ${filter === f ? 'var(--terra)' : 'var(--border)'}`,
-                }}
-                aria-pressed={filter === f}
-              >
-                {f === 'detal' ? 'Detal' : 'Mayorista'}
-              </button>
-            ))} 
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {shown.map((p, i) => <ProductCard key={p.id} p={p} idx={i} />)}
-        </div>
-      </div>
-    </section>
-  )
-}
-
 // ─── Quality Section ──────────────────────────────────────────────────────────
 
 function QualitySection() {
@@ -1825,7 +1735,6 @@ export default function App() {
         <Hero />
         <StorySection />
         <ChooseSection />
-        <ProductsSection />
         <QualitySection />
         <StatsSection />
         <CalculatorSection />

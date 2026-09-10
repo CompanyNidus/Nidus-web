@@ -12,7 +12,7 @@ import imgDetal from '@/imports/WhatsApp Image 2026-09-08 at 3.48.35 PM.jpeg'
 import imgMayor from '@/imports/ChatGPT Image 8 sept 2026, 15_34_52.png'
 import imgHuevoAzul from '@/imports/ChatGPT Image 8 sept 2026, 16_01_41.png'
 import imgHuevo from '@/imports/WhatsApp_Image_2026-08-11_at_4.24.05_PM.jpeg'
-import imgCubetas from '@/imports/Cubetas.jpeg'
+import imgCubetas from '@/imports/cubetas.jpeg'
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 

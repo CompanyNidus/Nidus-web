@@ -345,7 +345,9 @@ const minimumQuantity =
           ? 50
           : product.name === 'Huevo Manchado'
             ? 50
-            : 5
+            : product.name === 'Pack Restaurante'
+              ? 5
+              : 10
     : 1
 
     // Si todavía no está seleccionado y presionamos "+"

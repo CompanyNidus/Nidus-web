@@ -303,125 +303,888 @@ function NidusWordmark({ size = 22 }: { size?: number }) {
     </span>
   )
 }
+// ─── Nidus Order Experience ──────────────────────────────────────────────────
 
+function OrderExperience({
+  open,
+  onClose,
+}: {
+  open: boolean
+  onClose: () => void
+}) {
+  const [category, setCategory] = useState<'detal' | 'mayorista' | null>(null)
+  const [cart, setCart] = useState<Record<number, number>>({})
+
+  const visibleProducts = PRODUCTS.filter(
+    product => category === null || product.category === category
+  )
+
+  const cartItems = PRODUCTS.filter(product => (cart[product.id] || 0) > 0)
+
+  const totalItems = Object.values(cart).reduce(
+    (total, quantity) => total + quantity,
+    0
+  )
+
+  const changeQuantity = (id: number, amount: number) => {
+  setCart(current => {
+    const product = PRODUCTS.find(item => item.id === id)
+
+    if (!product) return current
+
+    const currentQuantity = current[id] || 0
+
+    // Cantidad mínima para productos al por mayor
+const minimumQuantity =
+  product.category === 'mayorista'
+    ? product.name === 'Huevos A'
+      ? 20
+      : product.name === 'Huevos AA'
+        ? 20
+        : product.name === 'Decolorado'
+          ? 50
+          : product.name === 'Huevo Manchado'
+            ? 50
+            : 5
+    : 1
+
+    // Si todavía no está seleccionado y presionamos "+"
+    // comienza directamente desde el mínimo
+    if (currentQuantity === 0 && amount > 0) {
+      return {
+        ...current,
+        [id]: minimumQuantity,
+      }
+    }
+
+    const next = currentQuantity + amount
+
+    // Si llega a 0, se elimina del pedido
+    if (next <= 0) {
+      const copy = { ...current }
+      delete copy[id]
+      return copy
+    }
+
+    // En mayorista nunca puede quedar por debajo del mínimo
+    if (
+      product.category === 'mayorista' &&
+      next < minimumQuantity
+    ) {
+      return current
+    }
+
+    return {
+      ...current,
+      [id]: next,
+    }
+  })
+}
+
+  const selectCategory = (value: 'detal' | 'mayorista') => {
+    setCategory(value)
+    setCart({})
+  }
+
+  const sendWhatsApp = () => {
+    if (!category || cartItems.length === 0) return
+
+    const modality =
+      category === 'detal'
+        ? 'Al detal'
+        : 'Al por mayor'
+
+    const productsMessage = cartItems
+      .map(product => {
+        const quantity = cart[product.id] || 0
+        return `• ${quantity} × ${product.name} — ${product.presentation}`
+      })
+      .join('\n')
+
+    const message = `¡Hola Nidus! 👋 Quiero realizar un pedido.
+
+Modalidad: ${modality}
+
+Mi pedido:
+${productsMessage}
+
+¿Me pueden confirmar disponibilidad y precio?`
+
+    const whatsappUrl =
+      `https://wa.me/573102166781?text=${encodeURIComponent(message)}`
+
+    window.open(whatsappUrl, '_blank')
+  }
+
+  if (!open) return null
+
+  return (
+    <div
+      className="fixed inset-0 z-[100] overflow-y-auto"
+      style={{
+        backgroundColor: 'rgba(26,21,16,0.48)',
+        backdropFilter: 'blur(10px)',
+      }}
+    >
+      <div
+        className="min-h-screen flex items-start justify-center p-4 md:p-8"
+        onClick={onClose}
+      >
+        <div
+          className="relative w-full max-w-6xl my-4 md:my-8 overflow-hidden"
+          style={{
+            backgroundColor: 'var(--cream-lt)',
+            borderRadius: 28,
+            boxShadow: '0 30px 100px rgba(26,21,16,0.25)',
+          }}
+          onClick={e => e.stopPropagation()}
+        >
+          {/* HEADER */}
+          <div
+            className="sticky top-0 z-20 px-5 py-5 md:px-8 md:py-6 flex items-center justify-between"
+            style={{
+              backgroundColor: 'rgba(250,247,242,0.96)',
+              backdropFilter: 'blur(16px)',
+              borderBottom: '1px solid var(--border)',
+            }}
+          >
+            <div>
+              <div
+                className="text-xs font-semibold tracking-widest uppercase mb-1"
+                style={{
+                  color: 'var(--terra)',
+                  fontFamily: 'Outfit, sans-serif',
+                }}
+              >
+                Pedido Nidus
+              </div>
+
+              <h2
+                style={{
+                  fontFamily: 'Fraunces, serif',
+                  fontSize: 'clamp(1.8rem,4vw,2.8rem)',
+                  fontWeight: 800,
+                  color: 'var(--slate)',
+                  lineHeight: 1,
+                }}
+              >
+                Arma tu pedido
+              </h2>
+            </div>
+
+            <button
+              onClick={onClose}
+              className="w-10 h-10 rounded-full flex items-center justify-center transition-all"
+              style={{
+                backgroundColor: 'rgba(139,46,26,0.08)',
+                color: 'var(--terra)',
+              }}
+              aria-label="Cerrar pedido"
+            >
+              <span className="text-xl">×</span>
+            </button>
+          </div>
+
+          {/* CONTENT */}
+          <div className="p-5 md:p-8">
+
+            {/* MODALIDAD */}
+            {!category ? (
+              <div>
+                <div className="text-center max-w-xl mx-auto mb-8">
+                  <p
+                    className="text-sm md:text-base"
+                    style={{
+                      color: 'var(--muted)',
+                      fontFamily: 'Outfit, sans-serif',
+                    }}
+                  >
+                    Primero dinos cómo quieres comprar y te mostramos
+                    los productos disponibles.
+                  </p>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-5 max-w-4xl mx-auto">
+                  <button
+                    onClick={() => selectCategory('detal')}
+                    className="group text-left p-7 md:p-9 rounded-3xl transition-all duration-300"
+                    style={{
+                      backgroundColor: '#fff',
+                      border: '1px solid var(--border)',
+                    }}
+                    onMouseEnter={e => {
+                      e.currentTarget.style.transform = 'translateY(-4px)'
+                      e.currentTarget.style.borderColor = 'var(--terra)'
+                      e.currentTarget.style.boxShadow =
+                        '0 20px 45px rgba(139,46,26,0.12)'
+                    }}
+                    onMouseLeave={e => {
+                      e.currentTarget.style.transform = 'translateY(0)'
+                      e.currentTarget.style.borderColor = 'var(--border)'
+                      e.currentTarget.style.boxShadow = 'none'
+                    }}
+                  >
+                    <div className="text-4xl mb-5">🥚</div>
+
+                    <div
+                      className="text-xs uppercase tracking-widest font-semibold mb-2"
+                      style={{
+                        color: 'var(--terra)',
+                        fontFamily: 'Outfit, sans-serif',
+                      }}
+                    >
+                      Para hogares
+                    </div>
+
+                    <h3
+                      className="text-2xl md:text-3xl mb-3"
+                      style={{
+                        color: 'var(--slate)',
+                        fontFamily: 'Fraunces, serif',
+                        fontWeight: 800,
+                      }}
+                    >
+                      Comprar al detal
+                    </h3>
+
+                    <p
+                      className="leading-relaxed"
+                      style={{
+                        color: 'var(--muted)',
+                        fontFamily: 'Outfit, sans-serif',
+                      }}
+                    >
+                      Elige tus referencias favoritas y arma tu pedido
+                      por cubetas.
+                    </p>
+
+                    <div
+                      className="mt-6 font-semibold"
+                      style={{
+                        color: 'var(--terra)',
+                        fontFamily: 'Outfit, sans-serif',
+                      }}
+                    >
+                      Ver productos →
+                    </div>
+                  </button>
+
+                  <button
+                    onClick={() => selectCategory('mayorista')}
+                    className="group text-left p-7 md:p-9 rounded-3xl transition-all duration-300"
+                    style={{
+                      backgroundColor: 'var(--slate)',
+                      border: '1px solid var(--slate)',
+                    }}
+                    onMouseEnter={e => {
+                      e.currentTarget.style.transform = 'translateY(-4px)'
+                      e.currentTarget.style.boxShadow =
+                        '0 20px 45px rgba(26,21,16,0.18)'
+                    }}
+                    onMouseLeave={e => {
+                      e.currentTarget.style.transform = 'translateY(0)'
+                      e.currentTarget.style.boxShadow = 'none'
+                    }}
+                  >
+                    <div className="text-4xl mb-5">📦</div>
+
+                    <div
+                      className="text-xs uppercase tracking-widest font-semibold mb-2"
+                      style={{
+                        color: '#E8B6A7',
+                        fontFamily: 'Outfit, sans-serif',
+                      }}
+                    >
+                      Para negocios
+                    </div>
+
+                    <h3
+                      className="text-2xl md:text-3xl mb-3"
+                      style={{
+                        color: '#fff',
+                        fontFamily: 'Fraunces, serif',
+                        fontWeight: 800,
+                      }}
+                    >
+                      Comprar al por mayor
+                    </h3>
+
+                    <p
+                      className="leading-relaxed"
+                      style={{
+                        color: 'rgba(255,255,255,0.68)',
+                        fontFamily: 'Outfit, sans-serif',
+                      }}
+                    >
+                      Selecciona productos y cantidades para tu negocio
+                      o distribución.
+                    </p>
+
+                    <div
+                      className="mt-6 font-semibold"
+                      style={{
+                        color: '#fff',
+                        fontFamily: 'Outfit, sans-serif',
+                      }}
+                    >
+                      Ver productos →
+                    </div>
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div>
+
+                {/* TOP BAR */}
+                <div className="flex flex-wrap items-center justify-between gap-4 mb-7">
+                  <button
+                    onClick={() => {
+                      setCategory(null)
+                      setCart({})
+                    }}
+                    className="text-sm font-semibold"
+                    style={{
+                      color: 'var(--terra)',
+                      fontFamily: 'Outfit, sans-serif',
+                    }}
+                  >
+                    ← Cambiar modalidad
+                  </button>
+
+                  <div
+                    className="px-4 py-2 rounded-full text-sm font-semibold"
+                    style={{
+                      backgroundColor:
+                        category === 'detal'
+                          ? 'rgba(139,46,26,0.08)'
+                          : 'var(--slate)',
+                      color:
+                        category === 'detal'
+                          ? 'var(--terra)'
+                          : '#fff',
+                      fontFamily: 'Outfit, sans-serif',
+                    }}
+                  >
+                    {category === 'detal'
+                      ? '🥚 Compra al detal'
+                      : '📦 Compra al por mayor'}
+                  </div>
+                </div>
+
+                <div className="grid lg:grid-cols-[1fr_340px] gap-7">
+
+                  {/* PRODUCTS */}
+                  <div>
+                    <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4">
+                      {visibleProducts.map(product => {
+                        const quantity = cart[product.id] || 0
+
+                        return (
+                          <div
+                            key={product.id}
+                            className="overflow-hidden rounded-2xl"
+                            style={{
+                              backgroundColor: '#fff',
+                              border: `1px solid ${
+                                quantity > 0
+                                  ? 'rgba(139,46,26,0.45)'
+                                  : 'var(--border)'
+                              }`,
+                              boxShadow:
+                                quantity > 0
+                                  ? '0 10px 30px rgba(139,46,26,0.08)'
+                                  : 'none',
+                            }}
+                          >
+                            <div
+                              className="h-40 overflow-hidden"
+                              style={{
+                                backgroundColor: '#f1ece5',
+                              }}
+                            >
+                              <img
+                                src={product.img}
+                                alt={product.name}
+                                className="w-full h-full object-cover"
+                              />
+                            </div>
+
+                            <div className="p-4">
+                              {product.badge && (
+                                <div
+                                  className="text-[10px] uppercase tracking-widest font-bold mb-1"
+                                  style={{
+                                    color: 'var(--terra)',
+                                    fontFamily: 'Outfit, sans-serif',
+                                  }}
+                                >
+                                  {product.badge}
+                                </div>
+                              )}
+
+                              <h3
+                                className="text-lg font-bold"
+                                style={{
+                                  color: 'var(--slate)',
+                                  fontFamily: 'Fraunces, serif',
+                                }}
+                              >
+                                {product.name}
+                              </h3>
+
+                              <p
+                                className="text-xs mt-1"
+                                style={{
+                                  color: 'var(--muted)',
+                                  fontFamily: 'Outfit, sans-serif',
+                                }}
+                              >
+                                {product.presentation}
+                              </p>
+
+                              <div className="flex items-center justify-between mt-4">
+                                <span
+                                  className="text-xs"
+                                  style={{
+                                    color: 'var(--muted)',
+                                    fontFamily: 'Outfit, sans-serif',
+                                  }}
+                                >
+                                  Cantidad
+                                </span>
+
+                                <div
+                                  className="flex items-center rounded-full overflow-hidden"
+                                  style={{
+                                    border: '1px solid var(--border)',
+                                  }}
+                                >
+                                  <button
+                                    onClick={() =>
+                                      changeQuantity(product.id, -1)
+                                    }
+                                    className="w-9 h-9 font-bold"
+                                    style={{
+                                      color: 'var(--terra)',
+                                    }}
+                                  >
+                                    −
+                                  </button>
+
+                                  <span
+                                    className="w-8 text-center text-sm font-bold"
+                                    style={{
+                                      color: 'var(--slate)',
+                                      fontFamily: 'Outfit, sans-serif',
+                                    }}
+                                  >
+                                    {quantity}
+                                  </span>
+
+                                  <button
+                                    onClick={() =>
+                                      changeQuantity(product.id, 1)
+                                    }
+                                    className="w-9 h-9 font-bold"
+                                    style={{
+                                      color: 'var(--terra)',
+                                    }}
+                                  >
+                                    +
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        )
+                      })}
+                    </div>
+                  </div>
+
+                  {/* ORDER SUMMARY */}
+                  <aside
+                    className="lg:sticky lg:top-28 h-fit rounded-3xl p-5 md:p-6"
+                    style={{
+                      backgroundColor: 'var(--slate)',
+                      color: '#fff',
+                    }}
+                  >
+                    <div
+                      className="text-xs uppercase tracking-widest font-semibold mb-2"
+                      style={{
+                        color: '#E8B6A7',
+                        fontFamily: 'Outfit, sans-serif',
+                      }}
+                    >
+                      Resumen
+                    </div>
+
+                    <h3
+                      className="text-2xl mb-5"
+                      style={{
+                        fontFamily: 'Fraunces, serif',
+                        fontWeight: 800,
+                      }}
+                    >
+                      Tu pedido
+                    </h3>
+
+                    {cartItems.length === 0 ? (
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{
+                          color: 'rgba(255,255,255,0.55)',
+                          fontFamily: 'Outfit, sans-serif',
+                        }}
+                      >
+                        Selecciona los productos que quieres pedir.
+                      </p>
+                    ) : (
+                      <div className="space-y-3">
+                        {cartItems.map(product => (
+                          <div
+                            key={product.id}
+                            className="flex items-start justify-between gap-3 pb-3"
+                            style={{
+                              borderBottom:
+                                '1px solid rgba(255,255,255,0.1)',
+                            }}
+                          >
+                            <div>
+                              <div
+                                className="text-sm font-semibold"
+                                style={{
+                                  fontFamily: 'Outfit, sans-serif',
+                                }}
+                              >
+                                {product.name}
+                              </div>
+
+                              <div
+                                className="text-xs mt-0.5"
+                                style={{
+                                  color: 'rgba(255,255,255,0.55)',
+                                  fontFamily: 'Outfit, sans-serif',
+                                }}
+                              >
+                                {product.presentation}
+                              </div>
+                            </div>
+
+                            <div
+                              className="font-bold"
+                              style={{
+                                color: '#E8B6A7',
+                                fontFamily: 'Outfit, sans-serif',
+                              }}
+                            >
+                              ×{cart[product.id]}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    <div
+                      className="flex justify-between items-center mt-6 pt-5"
+                      style={{
+                        borderTop:
+                          '1px solid rgba(255,255,255,0.12)',
+                      }}
+                    >
+                      <span
+                        className="text-sm"
+                        style={{
+                          color: 'rgba(255,255,255,0.6)',
+                          fontFamily: 'Outfit, sans-serif',
+                        }}
+                      >
+                        Productos
+                      </span>
+
+                      <span
+                        className="font-bold"
+                        style={{
+                          fontFamily: 'Outfit, sans-serif',
+                        }}
+                      >
+                        {totalItems}
+                      </span>
+                    </div>
+
+                    <button
+                      onClick={sendWhatsApp}
+                      disabled={cartItems.length === 0}
+                      className="w-full mt-5 px-5 py-4 rounded-full font-bold transition-all"
+                      style={{
+                        backgroundColor:
+                          cartItems.length === 0
+                            ? 'rgba(255,255,255,0.12)'
+                            : '#25D366',
+                        color:
+                          cartItems.length === 0
+                            ? 'rgba(255,255,255,0.35)'
+                            : '#fff',
+                        cursor:
+                          cartItems.length === 0
+                            ? 'not-allowed'
+                            : 'pointer',
+                        fontFamily: 'Outfit, sans-serif',
+                      }}
+                    >
+                      {cartItems.length === 0
+                        ? 'Selecciona productos'
+                        : 'Enviar pedido por WhatsApp →'}
+                    </button>
+
+                    <p
+                      className="text-[11px] text-center mt-3 leading-relaxed"
+                      style={{
+                        color: 'rgba(255,255,255,0.4)',
+                        fontFamily: 'Outfit, sans-serif',
+                      }}
+                    >
+                      El precio y disponibilidad se confirman
+                      directamente por WhatsApp.
+                    </p>
+                  </aside>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
 // ─── Navbar ───────────────────────────────────────────────────────────────────
 
 function Navbar({ scrollY }: { scrollY: number }) {
   const [open, setOpen] = useState(false)
+  const [orderOpen, setOrderOpen] = useState(false)
   const scrolled = scrollY > 60
 
   return (
-    <header
-      className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
-      style={{
-        backgroundColor: scrolled ? 'rgba(250,247,242,0.94)' : 'transparent',
-        backdropFilter: scrolled ? 'blur(16px)' : 'none',
-        borderBottom: `1px solid ${scrolled ? 'rgba(139,46,26,0.1)' : 'transparent'}`,
-        boxShadow: scrolled ? '0 2px 20px rgba(26,21,16,0.05)' : 'none',
-      }}
-    >
-      <nav
-        className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between"
-        role="navigation"
-        aria-label="Navegación principal"
-      >
-        {/* Brand */}
-        <a href="#" className="flex items-center gap-2.5" aria-label="Nidus — inicio">
-          <NidusLogoMark size={38} color="#8B2E1A" />
-          <NidusWordmark size={20} />
-        </a>
-
-        {/* Desktop links */}
-        <div className="hidden md:flex items-center gap-7">
-          {[['#productos', 'Productos'], ['#mayoristas', 'Mayoristas'], ['#calidad', 'Calidad'], ['#nosotros', 'Nosotros'], ['#contacto', 'Contacto']].map(([href, label]) => (
-            <a
-              key={href}
-              href={href}
-              className="text-sm font-medium transition-colors duration-200"
-              style={{ color: 'var(--muted)', fontFamily: 'Outfit, sans-serif' }}
-              onMouseEnter={e => ((e.currentTarget as HTMLElement).style.color = 'var(--terra)')}
-              onMouseLeave={e => ((e.currentTarget as HTMLElement).style.color = 'var(--muted)')}
-            >
-              {label}
-            </a>
-          ))}
-        </div>
-
-        {/* CTA */}
-        <button
-          className="hidden md:block px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-250"
-          style={{ backgroundColor: 'var(--terra)', color: 'var(--cream-lt)', fontFamily: 'Outfit, sans-serif' }}
-          onMouseEnter={e => {
-            ;(e.currentTarget as HTMLElement).style.backgroundColor = 'var(--terra-br)'
-            ;(e.currentTarget as HTMLElement).style.transform = 'translateY(-1px)'
-            ;(e.currentTarget as HTMLElement).style.boxShadow = '0 6px 20px rgba(139,46,26,0.28)'
-          }}
-          onMouseLeave={e => {
-            ;(e.currentTarget as HTMLElement).style.backgroundColor = 'var(--terra)'
-            ;(e.currentTarget as HTMLElement).style.transform = 'translateY(0)'
-            ;(e.currentTarget as HTMLElement).style.boxShadow = 'none'
-          }}
-        >
-          Comprar ahora
-        </button>
-
-        {/* Mobile hamburger */}
-        <button
-          className="md:hidden p-2 flex flex-col gap-1.5"
-          onClick={() => setOpen(o => !o)}
-          aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
-          aria-expanded={open}
-        >
-          {[0, 1, 2].map(i => (
-            <span
-              key={i}
-              className="block w-6 h-0.5 transition-all duration-300"
-              style={{
-                backgroundColor: 'var(--terra)',
-                transform: i === 0 && open ? 'rotate(45deg) translateY(8px)' : i === 2 && open ? 'rotate(-45deg) translateY(-8px)' : 'none',
-                opacity: i === 1 && open ? 0 : 1,
-              }}
-            />
-          ))}
-        </button>
-      </nav>
-
-      {/* Mobile menu */}
-      <div
+    <>
+      <header
+        className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
         style={{
-          maxHeight: open ? '380px' : '0',
-          overflow: 'hidden',
-          transition: 'max-height 0.4s ease',
-          backgroundColor: 'rgba(250,247,242,0.97)',
-          backdropFilter: 'blur(20px)',
+          backgroundColor: scrolled
+            ? 'rgba(250,247,242,0.94)'
+            : 'transparent',
+          backdropFilter: scrolled ? 'blur(16px)' : 'none',
+          borderBottom: `1px solid ${
+            scrolled
+              ? 'rgba(139,46,26,0.1)'
+              : 'transparent'
+          }`,
+          boxShadow: scrolled
+            ? '0 2px 20px rgba(26,21,16,0.05)'
+            : 'none',
         }}
       >
-        <div className="px-6 pb-6 pt-2 flex flex-col gap-4">
-          {[['#productos', 'Productos'], ['#mayoristas', 'Mayoristas'], ['#calidad', 'Calidad'], ['#nosotros', 'Nosotros'], ['#contacto', 'Contacto']].map(([href, label]) => (
-            <a
-              key={href}
-              href={href}
-              className="text-base py-2.5 border-b font-medium"
-              style={{ color: 'var(--slate)', fontFamily: 'Outfit, sans-serif', borderColor: 'var(--border)' }}
-              onClick={() => setOpen(false)}
-            >
-              {label}
-            </a>
-          ))}
+        <nav
+          className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between"
+          role="navigation"
+          aria-label="Navegación principal"
+        >
+          {/* Brand */}
           <a
-            href="https://wa.me/573102166781?text=¡Hola%20Nidus,%20quiero%20comprar%20huevos%20al%20detal%20o%20al%20por%20mayor!"
-            target="_blank"
-            rel="noopener noreferrer">
-            <button
-            className="mt-1 px-5 py-3 rounded-full text-sm font-semibold"
-            style={{ backgroundColor: 'var(--terra)', color: 'var(--cream-lt)', fontFamily: 'Outfit, sans-serif' }}
-            >
-            Comprar ahora
-            </button>
+            href="#"
+            className="flex items-center gap-2.5"
+            aria-label="Nidus — inicio"
+          >
+            <NidusLogoMark
+              size={38}
+              color="#8B2E1A"
+            />
+
+            <NidusWordmark size={20} />
           </a>
+
+          {/* Desktop links */}
+          <div className="hidden md:flex items-center gap-7">
+            {[
+              ['#productos', 'Productos'],
+              ['#mayoristas', 'Mayoristas'],
+              ['#calidad', 'Calidad'],
+              ['#nosotros', 'Nosotros'],
+              ['#contacto', 'Contacto'],
+            ].map(([href, label]) => (
+              <a
+                key={href}
+                href={href}
+                className="text-sm font-medium transition-colors duration-200"
+                style={{
+                  color: 'var(--muted)',
+                  fontFamily: 'Outfit, sans-serif',
+                }}
+                onMouseEnter={e =>
+                  (
+                    e.currentTarget as HTMLElement
+                  ).style.color = 'var(--terra)'
+                }
+                onMouseLeave={e =>
+                  (
+                    e.currentTarget as HTMLElement
+                  ).style.color = 'var(--muted)'
+                }
+              >
+                {label}
+              </a>
+            ))}
+          </div>
+
+          {/* Desktop CTA */}
+          <button
+            type="button"
+            onClick={() => setOrderOpen(true)}
+            className="hidden md:block px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-250"
+            style={{
+              backgroundColor: 'var(--terra)',
+              color: 'var(--cream-lt)',
+              fontFamily: 'Outfit, sans-serif',
+            }}
+            onMouseEnter={e => {
+              ;(
+                e.currentTarget as HTMLElement
+              ).style.backgroundColor = 'var(--terra-br)'
+
+              ;(
+                e.currentTarget as HTMLElement
+              ).style.transform = 'translateY(-1px)'
+
+              ;(
+                e.currentTarget as HTMLElement
+              ).style.boxShadow =
+                '0 6px 20px rgba(139,46,26,0.28)'
+            }}
+            onMouseLeave={e => {
+              ;(
+                e.currentTarget as HTMLElement
+              ).style.backgroundColor = 'var(--terra)'
+
+              ;(
+                e.currentTarget as HTMLElement
+              ).style.transform = 'translateY(0)'
+
+              ;(
+                e.currentTarget as HTMLElement
+              ).style.boxShadow = 'none'
+            }}
+          >
+            Comprar ahora
+          </button>
+
+          {/* Mobile hamburger */}
+          <button
+            type="button"
+            className="md:hidden p-2 flex flex-col gap-1.5"
+            onClick={() => setOpen(o => !o)}
+            aria-label={
+              open
+                ? 'Cerrar menú'
+                : 'Abrir menú'
+            }
+            aria-expanded={open}
+          >
+            {[0, 1, 2].map(i => (
+              <span
+                key={i}
+                className="block w-6 h-0.5 transition-all duration-300"
+                style={{
+                  backgroundColor: 'var(--terra)',
+                  transform:
+                    i === 0 && open
+                      ? 'rotate(45deg) translateY(8px)'
+                      : i === 2 && open
+                        ? 'rotate(-45deg) translateY(-8px)'
+                        : 'none',
+                  opacity:
+                    i === 1 && open
+                      ? 0
+                      : 1,
+                }}
+              />
+            ))}
+          </button>
+        </nav>
+
+        {/* Mobile menu */}
+        <div
+          style={{
+            maxHeight: open
+              ? '420px'
+              : '0',
+            overflow: 'hidden',
+            transition:
+              'max-height 0.4s ease',
+            backgroundColor:
+              'rgba(250,247,242,0.97)',
+            backdropFilter:
+              'blur(20px)',
+          }}
+        >
+          <div className="px-6 pb-6 pt-2 flex flex-col gap-4">
+
+            {[
+              ['#productos', 'Productos'],
+              ['#mayoristas', 'Mayoristas'],
+              ['#calidad', 'Calidad'],
+              ['#nosotros', 'Nosotros'],
+              ['#contacto', 'Contacto'],
+            ].map(([href, label]) => (
+              <a
+                key={href}
+                href={href}
+                className="text-base py-2.5 border-b font-medium"
+                style={{
+                  color: 'var(--slate)',
+                  fontFamily:
+                    'Outfit, sans-serif',
+                  borderColor:
+                    'var(--border)',
+                }}
+                onClick={() =>
+                  setOpen(false)
+                }
+              >
+                {label}
+              </a>
+            ))}
+
+            {/* Mobile Comprar ahora */}
+            <button
+              type="button"
+              onClick={() => {
+                setOpen(false)
+                setOrderOpen(true)
+              }}
+              className="mt-1 self-start px-5 py-3 rounded-full text-sm font-semibold"
+              style={{
+                backgroundColor:
+                  'var(--terra)',
+                color:
+                  'var(--cream-lt)',
+                fontFamily:
+                  'Outfit, sans-serif',
+              }}
+            >
+              Comprar ahora
+            </button>
+
+          </div>
         </div>
-      </div>
-    </header>
+      </header>
+
+      {/* Order experience */}
+      <OrderExperience
+        open={orderOpen}
+        onClose={() =>
+          setOrderOpen(false)
+        }
+      />
+    </>
   )
 }
 
